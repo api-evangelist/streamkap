@@ -1,0 +1,115 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Streamkap
+providerId: streamkap
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: true
+tags:
+- Streaming
+- ETL
+- CDC
+- Kafka
+- Flink
+- Data Integration
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Streamkap spend. Streamkap bills primarily on data volume
+  (GB per month, measured as the higher of ingress or egress) with a base
+  subscription per paid plan, per-GB overage beyond the included allocation,
+  and separate per-vCPU-month charges for Streaming Agents (SQL / Python /
+  TypeScript transforms on Flink). Backfill volume is partially included and
+  overage counts toward monthly volume.
+notes: >-
+  Per-GB and per-vCPU rates and included allocations are subject to change;
+  verify against the Streamkap pricing page during reconciliation.
+sources:
+- https://streamkap.com/pricing
+- https://docs.streamkap.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Streamkap
+serviceCategory: Analytics
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Streamkap
+  ServiceCategory: Analytics
+  ProviderName: Streamkap
+  PublisherName: Streamkap
+  InvoiceIssuerName: Streamkap
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: data_volume_gb
+  description: >-
+    Data volume moved per month, measured as the higher of ingress or egress,
+    billed per GB beyond the plan's included allocation.
+  unit: gigabytes
+  aggregation: sum
+  dimensions:
+  - account
+  - pipeline
+  - connector
+- name: backfill_gb
+  description: >-
+    Historical backfill/snapshot data; a fixed allowance is included per plan
+    and excess counts toward monthly data volume.
+  unit: gigabytes
+  aggregation: sum
+  dimensions:
+  - account
+  - source
+- name: transform_vcpu_hours
+  description: >-
+    Streaming Agent (transform) compute billed per vCPU per month for SQL,
+    Python, and TypeScript transforms running on Flink.
+  unit: vcpu-months
+  aggregation: sum
+  dimensions:
+  - account
+  - transform
+- name: base_subscription
+  description: Flat monthly base subscription charge for the selected paid plan.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: >-
+    Pull Streamkap billing usage summaries and exports (billing/usage endpoints)
+    to inspect per-pipeline and per-connector GB burn and transform vCPU spend.
+- name: Allocation
+  description: >-
+    Tag sources, destinations, pipelines, and transforms per team/workload and
+    map to internal cost centers.
+- name: Optimization
+  description: >-
+    Filter and column-prune at the source, use incremental snapshots instead of
+    full backfills, right-size transform vCPU, and pause idle pipelines to avoid
+    unnecessary GB and compute charges.
+- name: Accountability
+  description: >-
+    Assign owners per pipeline; review monthly data-volume and transform spend
+    against budget and choose the plan whose included volume best fits steady
+    state.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

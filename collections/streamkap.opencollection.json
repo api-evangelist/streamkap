@@ -1,0 +1,376 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/authentication/access-token",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"client_id\": \"<client-id>\",\n  \"secret\": \"<secret>\"\n}"
+            }
+          },
+          "docs": "Exchange a client-id and secret (or a project key) for a JWT access token."
+        },
+        {
+          "info": {
+            "name": "Refresh Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/authentication/refresh-access-token",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"refreshToken\": \"<refresh-token>\"\n}"
+            }
+          },
+          "docs": "Refresh an access token using a refresh token."
+        },
+        {
+          "info": {
+            "name": "Who Am I",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/authentication/whoami"
+          },
+          "docs": "Return the caller's verified identity."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/sources"
+          },
+          "docs": "List all sources with filtering."
+        },
+        {
+          "info": {
+            "name": "Create Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/sources",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"my-postgres-source\",\n  \"connector\": \"postgresql\",\n  \"config\": {}\n}"
+            }
+          },
+          "docs": "Create a new source connector."
+        },
+        {
+          "info": {
+            "name": "Get Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve specific source details."
+        },
+        {
+          "info": {
+            "name": "List Source Connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/sources/connectors"
+          },
+          "docs": "List available source connector types."
+        },
+        {
+          "info": {
+            "name": "Execute Incremental Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/sources/execute-incremental-snapshot",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"id\": \"<source-id>\",\n  \"tables\": []\n}"
+            }
+          },
+          "docs": "Execute an incremental snapshot on a source."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Destinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/destinations"
+          },
+          "docs": "List all destinations with filtering."
+        },
+        {
+          "info": {
+            "name": "Create Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/destinations",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"my-snowflake-destination\",\n  \"connector\": \"snowflake\",\n  \"config\": {}\n}"
+            }
+          },
+          "docs": "Create a new destination."
+        },
+        {
+          "info": {
+            "name": "List Destination Connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/destinations/connectors"
+          },
+          "docs": "List available destination connector types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pipelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/pipelines"
+          },
+          "docs": "List all pipelines with filtering."
+        },
+        {
+          "info": {
+            "name": "Create Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/pipelines",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"my-pipeline\",\n  \"sourceId\": \"<source-id>\",\n  \"destinationId\": \"<destination-id>\",\n  \"transformIds\": []\n}"
+            }
+          },
+          "docs": "Create a new pipeline wiring a source to a destination."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/transforms"
+          },
+          "docs": "List all transforms with filtering."
+        },
+        {
+          "info": {
+            "name": "Create Transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/transforms",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"mask-pii\",\n  \"language\": \"SQL\",\n  \"code\": \"SELECT * FROM input\"\n}"
+            }
+          },
+          "docs": "Create a new transform (SQL, Python, or TypeScript)."
+        },
+        {
+          "info": {
+            "name": "Deploy Transform Live",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/transforms/deploy-live",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"id\": \"<transform-id>\"\n}"
+            }
+          },
+          "docs": "Deploy a transform job to live."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Topics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/topics"
+          },
+          "docs": "List all topics with filtering."
+        },
+        {
+          "info": {
+            "name": "Get Topic Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/topics/:id/messages",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get messages for a topic."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/tags"
+          },
+          "docs": "Get tags by type."
+        },
+        {
+          "info": {
+            "name": "Create Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/tags",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"production\",\n  \"type\": \"source\"\n}"
+            }
+          },
+          "docs": "Create a new tag."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kafka Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Kafka Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/kafka-access/users"
+          },
+          "docs": "List Kafka users."
+        },
+        {
+          "info": {
+            "name": "Create Kafka User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/kafka-access/users",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"username\": \"consumer-app\",\n  \"acls\": []\n}"
+            }
+          },
+          "docs": "Create a new Kafka user and its ACLs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,854 @@
+openapi: 3.0.3
+info:
+  title: Streamkap API
+  description: >-
+    Representative specification of the Streamkap REST API for provisioning and
+    operating real-time streaming ETL / change data capture (CDC) infrastructure
+    built on Apache Kafka and Apache Flink. Covers sources, destinations,
+    pipelines, connectors, transforms, topics, tags, Kafka access, and
+    authentication. Endpoints and shapes are modeled from the public Streamkap
+    API reference; consult docs.streamkap.com for the authoritative, complete
+    contract.
+  termsOfService: https://streamkap.com/terms
+  contact:
+    name: Streamkap Support
+    url: https://streamkap.com/contact
+  version: '1.0'
+servers:
+  - url: https://api.streamkap.com/api
+    description: Streamkap production API
+security:
+  - bearerAuth: []
+tags:
+  - name: Authentication
+    description: Obtain and refresh access tokens and manage credentials.
+  - name: Sources
+    description: Configure source connectors and snapshots.
+  - name: Destinations
+    description: Configure and manage sink destinations.
+  - name: Pipelines
+    description: Manage CDC pipelines and their lifecycle.
+  - name: Connectors
+    description: Discover available connector types.
+  - name: Transforms
+    description: Deploy and manage in-stream transforms.
+  - name: Topics
+    description: Manage underlying Kafka topics.
+  - name: Tags
+    description: Create and manage resource tags.
+  - name: Kafka Access
+    description: Manage Kafka users and permissions.
+paths:
+  /authentication/access-token:
+    post:
+      operationId: createAccessToken
+      tags:
+        - Authentication
+      summary: Exchange credentials for a JWT access token.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessTokenRequest'
+      responses:
+        '200':
+          description: Access token issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /authentication/refresh-access-token:
+    post:
+      operationId: refreshAccessToken
+      tags:
+        - Authentication
+      summary: Refresh an access token using a refresh token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+                - refreshToken
+      responses:
+        '200':
+          description: Refreshed access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /authentication/whoami:
+    get:
+      operationId: whoami
+      tags:
+        - Authentication
+      summary: Return the caller's verified identity.
+      responses:
+        '200':
+          description: Caller identity.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  tenantId:
+                    type: string
+                  email:
+                    type: string
+  /sources:
+    get:
+      operationId: listSources
+      tags:
+        - Sources
+      summary: List all sources with filtering.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of sources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Source'
+    post:
+      operationId: createSource
+      tags:
+        - Sources
+      summary: Create a new source connector.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceInput'
+      responses:
+        '201':
+          description: Source created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+  /sources/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getSource
+      tags:
+        - Sources
+      summary: Retrieve specific source details.
+      responses:
+        '200':
+          description: Source details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+    put:
+      operationId: updateSource
+      tags:
+        - Sources
+      summary: Update an existing source connector.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceInput'
+      responses:
+        '200':
+          description: Source updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+    delete:
+      operationId: deleteSource
+      tags:
+        - Sources
+      summary: Delete a source.
+      responses:
+        '204':
+          description: Source deleted.
+  /sources/connectors:
+    get:
+      operationId: listSourceConnectors
+      tags:
+        - Connectors
+      summary: List available source connector types.
+      responses:
+        '200':
+          description: Available source connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connector'
+  /sources/execute-incremental-snapshot:
+    post:
+      operationId: executeIncrementalSnapshot
+      tags:
+        - Sources
+      summary: Execute an incremental snapshot on a source.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotRequest'
+      responses:
+        '202':
+          description: Snapshot accepted.
+  /destinations:
+    get:
+      operationId: listDestinations
+      tags:
+        - Destinations
+      summary: List all destinations with filtering.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of destinations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Destination'
+    post:
+      operationId: createDestination
+      tags:
+        - Destinations
+      summary: Create a new destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationInput'
+      responses:
+        '201':
+          description: Destination created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+  /destinations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getDestination
+      tags:
+        - Destinations
+      summary: Retrieve specific destination details.
+      responses:
+        '200':
+          description: Destination details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+    put:
+      operationId: updateDestination
+      tags:
+        - Destinations
+      summary: Update an existing destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationInput'
+      responses:
+        '200':
+          description: Destination updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+    delete:
+      operationId: deleteDestination
+      tags:
+        - Destinations
+      summary: Delete a destination.
+      responses:
+        '204':
+          description: Destination deleted.
+  /destinations/connectors:
+    get:
+      operationId: listDestinationConnectors
+      tags:
+        - Connectors
+      summary: List available destination connector types.
+      responses:
+        '200':
+          description: Available destination connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connector'
+  /pipelines:
+    get:
+      operationId: listPipelines
+      tags:
+        - Pipelines
+      summary: List all pipelines with filtering.
+      responses:
+        '200':
+          description: A list of pipelines.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pipeline'
+    post:
+      operationId: createPipeline
+      tags:
+        - Pipelines
+      summary: Create a new pipeline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PipelineInput'
+      responses:
+        '201':
+          description: Pipeline created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+  /pipelines/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getPipeline
+      tags:
+        - Pipelines
+      summary: Retrieve specific pipeline details.
+      responses:
+        '200':
+          description: Pipeline details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+    delete:
+      operationId: deletePipeline
+      tags:
+        - Pipelines
+      summary: Delete a pipeline.
+      responses:
+        '204':
+          description: Pipeline deleted.
+  /transforms:
+    get:
+      operationId: listTransforms
+      tags:
+        - Transforms
+      summary: List all transforms with filtering.
+      responses:
+        '200':
+          description: A list of transforms.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transform'
+    post:
+      operationId: createTransform
+      tags:
+        - Transforms
+      summary: Create a new transform.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformInput'
+      responses:
+        '201':
+          description: Transform created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+  /transforms/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getTransform
+      tags:
+        - Transforms
+      summary: Get full transform details.
+      responses:
+        '200':
+          description: Transform details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+    delete:
+      operationId: deleteTransform
+      tags:
+        - Transforms
+      summary: Delete a transform.
+      responses:
+        '204':
+          description: Transform deleted.
+  /transforms/deploy-live:
+    post:
+      operationId: deployTransformLive
+      tags:
+        - Transforms
+      summary: Deploy a transform job to live.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+      responses:
+        '202':
+          description: Deploy accepted.
+  /topics:
+    get:
+      operationId: listTopics
+      tags:
+        - Topics
+      summary: List all topics with filtering.
+      responses:
+        '200':
+          description: A list of topics.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Topic'
+    post:
+      operationId: createTopic
+      tags:
+        - Topics
+      summary: Create a new Kafka topic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopicInput'
+      responses:
+        '201':
+          description: Topic created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+  /topics/{id}/messages:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getTopicMessages
+      tags:
+        - Topics
+      summary: Get messages for a topic.
+      responses:
+        '200':
+          description: Topic messages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /tags:
+    get:
+      operationId: listTags
+      tags:
+        - Tags
+      summary: Get tags by type.
+      responses:
+        '200':
+          description: A list of tags.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      operationId: createTag
+      tags:
+        - Tags
+      summary: Create a new tag.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        '201':
+          description: Tag created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /kafka-access/users:
+    get:
+      operationId: listKafkaUsers
+      tags:
+        - Kafka Access
+      summary: List Kafka users.
+      responses:
+        '200':
+          description: A list of Kafka users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KafkaUser'
+    post:
+      operationId: createKafkaUser
+      tags:
+        - Kafka Access
+      summary: Create a new Kafka user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KafkaUserInput'
+      responses:
+        '201':
+          description: Kafka user created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KafkaUser'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT access token obtained from POST /authentication/access-token by
+        exchanging a client-id and secret (or a project key). Passed as
+        Authorization: Bearer <token>.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    loc:
+                      type: array
+                      items:
+                        type: string
+                    msg:
+                      type: string
+                    type:
+                      type: string
+  schemas:
+    AccessTokenRequest:
+      type: object
+      description: Provide either client_id + secret, or a project_key.
+      properties:
+        client_id:
+          type: string
+          maxLength: 256
+        secret:
+          type: string
+          maxLength: 512
+        project_key:
+          type: string
+          maxLength: 8192
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        expires:
+          type: string
+    Source:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        connector:
+          type: string
+          description: Source connector type, e.g. postgresql, mysql, mongodb.
+        status:
+          type: string
+          enum: [PENDING, ACTIVE, PAUSED, STOPPED, FAILED]
+        config:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    SourceInput:
+      type: object
+      required:
+        - name
+        - connector
+        - config
+      properties:
+        name:
+          type: string
+        connector:
+          type: string
+        config:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    Destination:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        connector:
+          type: string
+          description: Destination connector type, e.g. snowflake, databricks, bigquery, clickhouse.
+        status:
+          type: string
+          enum: [PENDING, ACTIVE, PAUSED, STOPPED, FAILED]
+        config:
+          type: object
+          additionalProperties: true
+    DestinationInput:
+      type: object
+      required:
+        - name
+        - connector
+        - config
+      properties:
+        name:
+          type: string
+        connector:
+          type: string
+        config:
+          type: object
+          additionalProperties: true
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sourceId:
+          type: string
+        destinationId:
+          type: string
+        transformIds:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+    PipelineInput:
+      type: object
+      required:
+        - name
+        - sourceId
+        - destinationId
+      properties:
+        name:
+          type: string
+        sourceId:
+          type: string
+        destinationId:
+          type: string
+        transformIds:
+          type: array
+          items:
+            type: string
+    Connector:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        category:
+          type: string
+          enum: [source, destination]
+        configSchema:
+          type: object
+          additionalProperties: true
+    Transform:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        language:
+          type: string
+          enum: [SQL, Python, TypeScript]
+        status:
+          type: string
+        inputTopics:
+          type: array
+          items:
+            type: string
+        outputTopics:
+          type: array
+          items:
+            type: string
+    TransformInput:
+      type: object
+      required:
+        - name
+        - language
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+          enum: [SQL, Python, TypeScript]
+        code:
+          type: string
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        partitions:
+          type: integer
+        replicationFactor:
+          type: integer
+    TopicInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        partitions:
+          type: integer
+        replicationFactor:
+          type: integer
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    TagInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+    KafkaUser:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acls:
+          type: array
+          items:
+            type: object
+    KafkaUserInput:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+        acls:
+          type: array
+          items:
+            type: object
+    SnapshotRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: Source id to snapshot.
+        tables:
+          type: array
+          items:
+            type: string

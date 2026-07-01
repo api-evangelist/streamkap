@@ -1,0 +1,219 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Streamkap
+providerId: streamkap
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: true
+tags:
+- Streaming
+- ETL
+- CDC
+- Kafka
+- Flink
+- Data Integration
+- Plans
+description: >-
+  Streamkap prices its real-time streaming ETL platform primarily on data
+  volume (GB per month, billed on the higher of ingress or egress) across a
+  Free tier plus paid Starter, Scale, and Enterprise plans. Streaming Agents
+  (SQL / Python / TypeScript transforms running on Flink) are billed
+  separately per vCPU per month. Overage data beyond the included allocation
+  is billed per GB. The API itself is included with any plan; there is no
+  separate per-request API charge.
+notes: >-
+  Representative pricing as published on the Streamkap pricing page; verify the
+  current tiers, included volumes, and per-GB / per-vCPU rates on the pricing
+  page during reconciliation, as they change.
+sources:
+- https://streamkap.com/pricing
+- https://docs.streamkap.com
+plans:
+- id: streamkap-free
+  name: Free
+  type: free
+  description: >-
+    No-cost tier for evaluation with a capped monthly data volume and shared
+    transform compute. No credit card required.
+  entries:
+  - label: Included Data Volume
+    name: free_data_volume
+    type: usage
+    metric: gigabytes
+    limit: 0.5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Shared Transform Compute
+    name: free_transform_compute
+    type: usage
+    metric: hours
+    limit: 24
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Sources
+  - name: Destinations
+  - name: Pipelines
+  - name: Transforms (shared)
+  - name: REST API
+- id: streamkap-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry paid plan with a base monthly data allocation; additional volume and
+    Streaming Agents billed as usage.
+  entries:
+  - label: Base Subscription
+    name: starter_base
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $250/month ($3,000/year)
+    userMultiplied: false
+  - label: Included Data Volume
+    name: starter_included_volume
+    type: usage
+    metric: gigabytes
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included in base
+    userMultiplied: false
+  - label: Additional Data Volume
+    name: starter_overage_volume
+    type: usage
+    metric: gigabytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $1.50 per GB (higher of ingress or egress)
+    userMultiplied: false
+  - label: Included Backfill
+    name: starter_backfill
+    type: usage
+    metric: gigabytes
+    limit: 5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included; excess counts toward monthly volume
+    userMultiplied: false
+  - label: Streaming Agents (Transforms)
+    name: starter_transform_compute
+    type: usage
+    metric: vcpu
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $250 per vCPU/month
+    userMultiplied: false
+  elements:
+  - name: Sources
+  - name: Destinations
+  - name: Pipelines
+  - name: Transforms (SQL / Python / TypeScript)
+  - name: REST API
+- id: streamkap-scale
+  name: Scale
+  type: subscription
+  description: >-
+    High-volume plan with a large included monitoring/backfill allocation for
+    production streaming workloads.
+  entries:
+  - label: Base Subscription
+    name: scale_base
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $2,100/month ($21,000/year)
+    userMultiplied: false
+  - label: Included Data Volume
+    name: scale_included_volume
+    type: usage
+    metric: gigabytes
+    limit: 150
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included in base
+    userMultiplied: false
+  - label: Additional Data Volume
+    name: scale_overage_volume
+    type: usage
+    metric: gigabytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $1.50 per GB (higher of ingress or egress)
+    userMultiplied: false
+  - label: Included Backfill
+    name: scale_backfill
+    type: usage
+    metric: terabytes
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included; excess counts toward monthly volume
+    userMultiplied: false
+  - label: Streaming Agents (Transforms)
+    name: scale_transform_compute
+    type: usage
+    metric: vcpu
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $250 per vCPU/month
+    userMultiplied: false
+  elements:
+  - name: Sources
+  - name: Destinations
+  - name: Pipelines
+  - name: Transforms (SQL / Python / TypeScript)
+  - name: REST API
+- id: streamkap-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom-priced plan with unlimited capacity, volume discounts, private
+    deployment options, and negotiated terms. Available via credit card,
+    invoice, AWS Marketplace, or Snowflake Marketplace credits. Contact
+    Streamkap sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Private / Dedicated Deployment
+  - name: AWS Marketplace
+  - name: Snowflake Marketplace
+  - name: SLA and Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

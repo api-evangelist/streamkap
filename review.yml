@@ -1,0 +1,83 @@
+aid: streamkap
+name: Streamkap
+review:
+  question: Does Streamkap expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Streamkap's public developer surface is
+    a REST control-plane API (provision/operate sources, destinations,
+    pipelines, transforms) under https://api.streamkap.com/api. The realtime
+    streaming itself happens over Apache Kafka on the data path, which customers
+    reach with standard Kafka clients over the Kafka wire protocol (provisioned
+    via the Kafka Access API), not via a documented public WebSocket surface.
+    No documented public WebSocket (ws:// or wss://) endpoint exists to model.
+findings:
+  summary: |
+    Streamkap does not publish a documented public WebSocket API. The public
+    developer contract is a JSON/HTTPS REST management API served at
+    https://api.streamkap.com/api, authenticated with short-lived JWT access
+    tokens obtained by exchanging a client-id and secret (or a project key).
+    Streaming data movement is delivered over Apache Kafka (Debezium-based CDC
+    into Kafka, transformed with Flink, sinked to destinations); consumers who
+    want direct stream access use the native Kafka protocol via credentials
+    provisioned through the Kafka Access API - not WebSocket.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.streamkap.com/api
+      documented: true
+    - protocol: Kafka
+      scheme: kafka
+      note: Native Kafka wire protocol on the data path; brokers/ACLs provisioned via the Kafka Access API. Not WebSocket, not part of the REST contract.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Streamkap's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.streamkap.com/api/authentication/access-token
+    - POST   https://api.streamkap.com/api/authentication/refresh-access-token
+    - GET    https://api.streamkap.com/api/authentication/whoami
+    - GET    https://api.streamkap.com/api/sources
+    - POST   https://api.streamkap.com/api/sources
+    - GET    https://api.streamkap.com/api/sources/{id}
+    - PUT    https://api.streamkap.com/api/sources/{id}
+    - DELETE https://api.streamkap.com/api/sources/{id}
+    - GET    https://api.streamkap.com/api/sources/connectors
+    - POST   https://api.streamkap.com/api/sources/execute-incremental-snapshot
+    - GET    https://api.streamkap.com/api/destinations
+    - POST   https://api.streamkap.com/api/destinations
+    - GET    https://api.streamkap.com/api/destinations/{id}
+    - GET    https://api.streamkap.com/api/destinations/connectors
+    - GET    https://api.streamkap.com/api/pipelines
+    - POST   https://api.streamkap.com/api/pipelines
+    - GET    https://api.streamkap.com/api/transforms
+    - POST   https://api.streamkap.com/api/transforms
+    - POST   https://api.streamkap.com/api/transforms/deploy-live
+    - GET    https://api.streamkap.com/api/topics
+    - POST   https://api.streamkap.com/api/topics
+    - GET    https://api.streamkap.com/api/tags
+    - POST   https://api.streamkap.com/api/tags
+    - GET    https://api.streamkap.com/api/kafka-access/users
+    - POST   https://api.streamkap.com/api/kafka-access/users
+sources:
+  - url: https://docs.streamkap.com/api-reference
+    type: APIReference
+    note: All documented management endpoints are HTTPS REST; JWT bearer auth via /authentication/access-token.
+  - url: https://docs.streamkap.com
+    type: Documentation
+    note: Platform overview - Kafka + Debezium + Flink; data path is Kafka, not WebSocket.
+  - url: https://github.com/streamkap-com
+    type: GitHubOrganization
+    note: Public org with Terraform provider, connectors, and forks of Debezium/Iceberg; no WebSocket API surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists to model. The Kafka data path is a
+    distinct native-protocol transport rather than a documented public WebSocket
+    API, so no AsyncAPI document was authored. The apis.yml catalog reflects the
+    documented REST management surfaces only.

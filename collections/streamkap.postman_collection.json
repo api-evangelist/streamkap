@@ -1,0 +1,490 @@
+{
+  "info": {
+    "name": "Streamkap API",
+    "description": "Representative Postman collection for the Streamkap real-time streaming ETL / CDC management API. Authenticate via POST /authentication/access-token to obtain a JWT, then set the bearerToken variable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.streamkap.com/api",
+      "type": "string"
+    },
+    {
+      "key": "bearerToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Create Access Token",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/authentication/access-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["authentication", "access-token"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<client-id>\",\n  \"secret\": \"<secret>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Refresh Access Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/authentication/refresh-access-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["authentication", "refresh-access-token"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"<refresh-token>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Who Am I",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/authentication/whoami",
+              "host": ["{{baseUrl}}"],
+              "path": ["authentication", "whoami"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sources",
+      "item": [
+        {
+          "name": "List Sources",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sources",
+              "host": ["{{baseUrl}}"],
+              "path": ["sources"]
+            }
+          }
+        },
+        {
+          "name": "Create Source",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sources",
+              "host": ["{{baseUrl}}"],
+              "path": ["sources"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"my-postgres-source\",\n  \"connector\": \"postgresql\",\n  \"config\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Source",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sources/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["sources", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Source Connectors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sources/connectors",
+              "host": ["{{baseUrl}}"],
+              "path": ["sources", "connectors"]
+            }
+          }
+        },
+        {
+          "name": "Execute Incremental Snapshot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sources/execute-incremental-snapshot",
+              "host": ["{{baseUrl}}"],
+              "path": ["sources", "execute-incremental-snapshot"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<source-id>\",\n  \"tables\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Destinations",
+      "item": [
+        {
+          "name": "List Destinations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destinations",
+              "host": ["{{baseUrl}}"],
+              "path": ["destinations"]
+            }
+          }
+        },
+        {
+          "name": "Create Destination",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/destinations",
+              "host": ["{{baseUrl}}"],
+              "path": ["destinations"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"my-snowflake-destination\",\n  \"connector\": \"snowflake\",\n  \"config\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List Destination Connectors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destinations/connectors",
+              "host": ["{{baseUrl}}"],
+              "path": ["destinations", "connectors"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pipelines",
+      "item": [
+        {
+          "name": "List Pipelines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/pipelines",
+              "host": ["{{baseUrl}}"],
+              "path": ["pipelines"]
+            }
+          }
+        },
+        {
+          "name": "Create Pipeline",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pipelines",
+              "host": ["{{baseUrl}}"],
+              "path": ["pipelines"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"my-pipeline\",\n  \"sourceId\": \"<source-id>\",\n  \"destinationId\": \"<destination-id>\",\n  \"transformIds\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transforms",
+      "item": [
+        {
+          "name": "List Transforms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/transforms",
+              "host": ["{{baseUrl}}"],
+              "path": ["transforms"]
+            }
+          }
+        },
+        {
+          "name": "Create Transform",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transforms",
+              "host": ["{{baseUrl}}"],
+              "path": ["transforms"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"mask-pii\",\n  \"language\": \"SQL\",\n  \"code\": \"SELECT * FROM input\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Deploy Transform Live",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transforms/deploy-live",
+              "host": ["{{baseUrl}}"],
+              "path": ["transforms", "deploy-live"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<transform-id>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Topics",
+      "item": [
+        {
+          "name": "List Topics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/topics",
+              "host": ["{{baseUrl}}"],
+              "path": ["topics"]
+            }
+          }
+        },
+        {
+          "name": "Get Topic Messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/topics/:id/messages",
+              "host": ["{{baseUrl}}"],
+              "path": ["topics", ":id", "messages"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "item": [
+        {
+          "name": "List Tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tags",
+              "host": ["{{baseUrl}}"],
+              "path": ["tags"]
+            }
+          }
+        },
+        {
+          "name": "Create Tag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tags",
+              "host": ["{{baseUrl}}"],
+              "path": ["tags"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"production\",\n  \"type\": \"source\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kafka Access",
+      "item": [
+        {
+          "name": "List Kafka Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/kafka-access/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["kafka-access", "users"]
+            }
+          }
+        },
+        {
+          "name": "Create Kafka User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/kafka-access/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["kafka-access", "users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"consumer-app\",\n  \"acls\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

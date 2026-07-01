@@ -1,0 +1,79 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Streamkap
+providerId: streamkap
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Streaming
+- ETL
+- CDC
+- Kafka
+- Flink
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Streamkap management REST API is a control-plane API for provisioning
+  and operating sources, destinations, pipelines, and transforms; it is not the
+  data path. Streamkap does not publish fixed public per-endpoint request-rate
+  numbers for the management API. The practical "limits" that govern Streamkap
+  usage are the plan-level data-volume allocations (GB/month) and transform
+  compute (vCPU) rather than API requests per second. Access tokens are
+  short-lived JWTs that must be refreshed, which bounds long-running automation.
+notes: >-
+  Confirm any specific management-API request-rate limits and token TTLs in the
+  Streamkap API reference during reconciliation. Data throughput is governed by
+  plan volume allocations, not by API request rate.
+sources:
+- https://docs.streamkap.com/api-reference/authentication
+- https://streamkap.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Management API Requests
+  scope: tenant
+  metric: requests
+  limit: see provider documentation
+  notes: >-
+    Control-plane request-rate limits are not published as fixed public values;
+    reasonable-use limits may apply per tenant.
+- name: Access Token Lifetime
+  scope: credential
+  metric: seconds
+  limit: expiresIn on token response
+  notes: >-
+    Access tokens expire (expiresIn is returned on the token response) and must
+    be refreshed via /authentication/refresh-access-token.
+- name: Data Volume
+  scope: account
+  metric: gigabytes
+  limit: per plan allocation
+  notes: >-
+    Free 500 MB/month; Starter caps at 30 GB/month; Scale includes 150 GB/month;
+    Enterprise unlimited. Overage billed per GB.
+- name: Transform Compute
+  scope: account
+  metric: vcpu
+  limit: per plan allocation
+  notes: >-
+    Free tier includes 24 hours/month shared compute; paid plans bill Streaming
+    Agents at $250 per vCPU/month.
+policies:
+- name: Token Refresh
+  description: >-
+    Clients should refresh the short-lived JWT before expiry rather than
+    re-authenticating on every call.
+- name: Backoff Strategy
+  description: >-
+    Clients should implement exponential backoff with jitter and honor
+    Retry-After on any 429 response from the management API.
+- name: Plan-Based Capacity
+  description: >-
+    Effective throughput is governed by plan data-volume and transform-compute
+    allocations; raise capacity by upgrading the plan or contacting sales.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
