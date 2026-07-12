@@ -227,6 +227,12 @@ apis:
     token, refresh tokens, manage client credentials and project keys, and inspect
     the caller's identity, permissions, and roles.
 common:
+- type: TrustCenter
+  url: security/streamkap-trust-center.yml
+- type: DomainSecurity
+  url: security/streamkap-domain-security.yml
+- type: Authentication
+  url: authentication/streamkap-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/streamkap-com
 - type: LinkedIn
