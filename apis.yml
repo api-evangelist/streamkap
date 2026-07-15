@@ -227,6 +227,8 @@ apis:
     token, refresh tokens, manage client credentials and project keys, and inspect
     the caller's identity, permissions, and roles.
 common:
+- type: AgenticAccess
+  url: agentic-access/streamkap-agentic-access.yml
 - type: TrustCenter
   url: security/streamkap-trust-center.yml
 - type: DomainSecurity
