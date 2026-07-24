@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Streamkap Authentication Connectors API
+  description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
+  termsOfService: https://streamkap.com/terms
+  contact:
+    name: Streamkap Support
+    url: https://streamkap.com/contact
+  version: '1.0'
+servers:
+- url: https://api.streamkap.com/api
+  description: Streamkap production API
+security:
+- bearerAuth: []
+tags:
+- name: Connectors
+  description: Discover available connector types.
+paths:
+  /sources/connectors:
+    get:
+      operationId: listSourceConnectors
+      tags:
+      - Connectors
+      summary: List available source connector types.
+      responses:
+        '200':
+          description: Available source connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connector'
+  /destinations/connectors:
+    get:
+      operationId: listDestinationConnectors
+      tags:
+      - Connectors
+      summary: List available destination connector types.
+      responses:
+        '200':
+          description: Available destination connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connector'
+components:
+  schemas:
+    Connector:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        category:
+          type: string
+          enum:
+          - source
+          - destination
+        configSchema:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT access token obtained from POST /authentication/access-token by exchanging a client-id and secret (or a project key). Passed as Authorization: Bearer <token>.'

@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: Streamkap Authentication Sources API
+  description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
+  termsOfService: https://streamkap.com/terms
+  contact:
+    name: Streamkap Support
+    url: https://streamkap.com/contact
+  version: '1.0'
+servers:
+- url: https://api.streamkap.com/api
+  description: Streamkap production API
+security:
+- bearerAuth: []
+tags:
+- name: Sources
+  description: Configure source connectors and snapshots.
+paths:
+  /sources:
+    get:
+      operationId: listSources
+      tags:
+      - Sources
+      summary: List all sources with filtering.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of sources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Source'
+    post:
+      operationId: createSource
+      tags:
+      - Sources
+      summary: Create a new source connector.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceInput'
+      responses:
+        '201':
+          description: Source created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+  /sources/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getSource
+      tags:
+      - Sources
+      summary: Retrieve specific source details.
+      responses:
+        '200':
+          description: Source details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+    put:
+      operationId: updateSource
+      tags:
+      - Sources
+      summary: Update an existing source connector.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceInput'
+      responses:
+        '200':
+          description: Source updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+    delete:
+      operationId: deleteSource
+      tags:
+      - Sources
+      summary: Delete a source.
+      responses:
+        '204':
+          description: Source deleted.
+  /sources/execute-incremental-snapshot:
+    post:
+      operationId: executeIncrementalSnapshot
+      tags:
+      - Sources
+      summary: Execute an incremental snapshot on a source.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotRequest'
+      responses:
+        '202':
+          description: Snapshot accepted.
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
+  schemas:
+    SourceInput:
+      type: object
+      required:
+      - name
+      - connector
+      - config
+      properties:
+        name:
+          type: string
+        connector:
+          type: string
+        config:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    Source:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        connector:
+          type: string
+          description: Source connector type, e.g. postgresql, mysql, mongodb.
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACTIVE
+          - PAUSED
+          - STOPPED
+          - FAILED
+        config:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    SnapshotRequest:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Source id to snapshot.
+        tables:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT access token obtained from POST /authentication/access-token by exchanging a client-id and secret (or a project key). Passed as Authorization: Bearer <token>.'

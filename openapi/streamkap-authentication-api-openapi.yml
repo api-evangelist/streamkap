@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: Streamkap Authentication API
+  description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
+  termsOfService: https://streamkap.com/terms
+  contact:
+    name: Streamkap Support
+    url: https://streamkap.com/contact
+  version: '1.0'
+servers:
+- url: https://api.streamkap.com/api
+  description: Streamkap production API
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: Obtain and refresh access tokens and manage credentials.
+paths:
+  /authentication/access-token:
+    post:
+      operationId: createAccessToken
+      tags:
+      - Authentication
+      summary: Exchange credentials for a JWT access token.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessTokenRequest'
+      responses:
+        '200':
+          description: Access token issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /authentication/refresh-access-token:
+    post:
+      operationId: refreshAccessToken
+      tags:
+      - Authentication
+      summary: Refresh an access token using a refresh token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+              - refreshToken
+      responses:
+        '200':
+          description: Refreshed access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /authentication/whoami:
+    get:
+      operationId: whoami
+      tags:
+      - Authentication
+      summary: Return the caller's verified identity.
+      responses:
+        '200':
+          description: Caller identity.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  tenantId:
+                    type: string
+                  email:
+                    type: string
+components:
+  schemas:
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        expires:
+          type: string
+    AccessTokenRequest:
+      type: object
+      description: Provide either client_id + secret, or a project_key.
+      properties:
+        client_id:
+          type: string
+          maxLength: 256
+        secret:
+          type: string
+          maxLength: 512
+        project_key:
+          type: string
+          maxLength: 8192
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    loc:
+                      type: array
+                      items:
+                        type: string
+                    msg:
+                      type: string
+                    type:
+                      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT access token obtained from POST /authentication/access-token by exchanging a client-id and secret (or a project key). Passed as Authorization: Bearer <token>.'
