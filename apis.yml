@@ -227,6 +227,10 @@ apis:
     token, refresh tokens, manage client credentials and project keys, and inspect
     the caller's identity, permissions, and roles.
 common:
+- type: AgentCard
+  url: a2a/streamkap-a2a.yml
+  name: A2A Agent Card
+  description: Agent Card served at /.well-known/agent-card.json (flavored against A2A 1.0.0).
 - type: AgenticAccess
   url: agentic-access/streamkap-agentic-access.yml
 - type: TrustCenter

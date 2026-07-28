@@ -1,0 +1,95 @@
+{
+  "name": "Streamkap",
+  "version": "1.0.0",
+  "description": "Streamkap \u2014 real-time data streaming platform (CDC + stream processing). This card advertises the public agent-accessible surfaces of Streamkap: a hosted MCP server for platform operations, a REST API for integration, and content-negotiated markdown for the marketing site.",
+  "url": "https://streamkap.com",
+  "provider": {
+    "organization": "Streamkap",
+    "url": "https://streamkap.com"
+  },
+  "documentationUrl": "https://docs.streamkap.com",
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain",
+    "text/markdown",
+    "application/json"
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://mcp.streamkap.com/mcp",
+      "protocolBinding": "MCP",
+      "protocolVersion": "1.0",
+      "transportProtocol": "http",
+      "description": "Streamkap MCP server (remote). Requires X-Streamkap-Client-ID and X-Streamkap-Client-Secret headers."
+    },
+    {
+      "url": "https://api.streamkap.com",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0",
+      "transportProtocol": "http",
+      "description": "Streamkap REST API. OpenAPI spec at https://api.streamkap.com/openapi.json; auth via client-credentials at /auth/access-token."
+    }
+  ],
+  "skills": [
+    {
+      "id": "browse-streamkap-content",
+      "name": "Browse Streamkap content as markdown",
+      "description": "Fetch any streamkap.com page (homepage, pricing, blog, resources, connectors) with Accept: text/markdown to receive a markdown representation instead of HTML.",
+      "tags": [
+        "content",
+        "marketing",
+        "markdown",
+        "content-negotiation"
+      ]
+    },
+    {
+      "id": "use-streamkap-mcp",
+      "name": "Operate Streamkap via MCP",
+      "description": "Connect to https://mcp.streamkap.com/mcp with Streamkap client credentials to manage connectors, pipelines, and transforms programmatically. Docs: https://docs.streamkap.com/mcp-server",
+      "tags": [
+        "mcp",
+        "platform-ops",
+        "automation"
+      ]
+    },
+    {
+      "id": "call-streamkap-rest-api",
+      "name": "Call the Streamkap REST API",
+      "description": "Self-describing REST API at https://api.streamkap.com. OpenAPI spec: https://api.streamkap.com/openapi.json. Auth: POST /auth/access-token with client_id + secret (docs at https://docs.streamkap.com/api-reference/authentication/access-token). Top-level resources: /auth, /topics (CRUD pipelines, bulk ops, snapshots, metrics), /transforms (streaming SQL/Python/TypeScript transforms, deploy + metrics), /destinations, /logs (query + histograms), /services, /alerts, /billing/usage, /dashboard.",
+      "tags": [
+        "rest-api",
+        "openapi",
+        "platform-ops"
+      ]
+    },
+    {
+      "id": "use-streamkap-cli",
+      "name": "Use the Streamkap CLI",
+      "description": "Command-line interface for managing Streamkap resources. Install: `npm install -g @streamkap/tools`. Auth via STREAMKAP_CLIENT_ID + STREAMKAP_CLIENT_SECRET env vars, then run commands like `streamkap pipelines list` or `streamkap sources metrics <id>`. JSON output when piped. Docs: https://docs.streamkap.com/cli",
+      "tags": [
+        "cli",
+        "devtools",
+        "automation"
+      ]
+    },
+    {
+      "id": "use-streamkap-terraform",
+      "name": "Manage Streamkap with Terraform",
+      "description": "Streamkap Terraform provider for declarative IaC management of connectors, pipelines, and transforms. Registry source: \"streamkap-com/streamkap\". Docs: https://docs.streamkap.com/streamkap-provider-for-terraform",
+      "tags": [
+        "terraform",
+        "iac",
+        "devtools"
+      ]
+    }
+  ],
+  "agentSkillsIndex": "https://streamkap.com/.well-known/agent-skills/index.json",
+  "mcpServerCard": "https://streamkap.com/.well-known/mcp/server-card.json"
+}
