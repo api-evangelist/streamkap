@@ -21,211 +21,366 @@ created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.19'
 apis:
-- aid: streamkap:streamkap-sources-api
-  name: Streamkap Sources API
-  tags:
-  - Sources
-  - CDC
-  - Connectors
-  - Snapshots
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/sources
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/sources
-    type: Documentation
-  - url: https://docs.streamkap.com/api-reference/sources
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Create, configure, deploy, pause, resume, restart, and reset source
-    connectors that capture change data from databases and other systems, plus
-    snapshot control (blocking, incremental, parallel), metrics, config history,
-    and bulk operations.
-- aid: streamkap:streamkap-destinations-api
-  name: Streamkap Destinations API
-  tags:
-  - Destinations
-  - Warehouses
-  - Connectors
-  - Sinks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/destinations
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/destinations
-    type: Documentation
-  - url: https://docs.streamkap.com/api-reference/destinations
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Manage sink destinations - Snowflake, Databricks, BigQuery, ClickHouse,
-    Redshift, S3, Iceberg, and more - including create, update, deploy, lifecycle
-    control, configuration schemas, metrics, and bulk operations.
-- aid: streamkap:streamkap-pipelines-api
-  name: Streamkap Pipelines API
-  tags:
-  - Pipelines
-  - Orchestration
-  - Data Flow
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/pipelines
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/pipelines
-    type: Documentation
-  - url: https://docs.streamkap.com/api-reference/pipelines
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Create and manage end-to-end pipelines that wire a source to a
-    destination (optionally through transforms), with lifecycle management,
-    per-pipeline metrics and logs, and bulk operations.
-- aid: streamkap:streamkap-connectors-api
-  name: Streamkap Connectors API
-  tags:
-  - Connectors
-  - Catalog
-  - Configuration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/connectors
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/connectors
-    type: Documentation
-  - url: https://docs.streamkap.com/api-reference/sources
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Discover the catalog of available source and destination connector
-    types and their configuration schemas so sources and destinations can be
-    provisioned programmatically against the correct connector definitions.
-- aid: streamkap:streamkap-transforms-api
-  name: Streamkap Transforms API
-  tags:
-  - Transforms
-  - Flink
-  - SQL
-  - Streaming Agents
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/transforms
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/transforms
-    type: Documentation
-  - url: https://docs.streamkap.com/api-reference/transforms
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Author, clone, unit-test, preview, and deploy in-stream transforms
-    (SQL, Python, TypeScript) running on Flink, including input/output topic wiring,
-    checkpoints, DLQ errors, and job status.
-- aid: streamkap:streamkap-topics-api
-  name: Streamkap Topics API
-  tags:
-  - Topics
-  - Kafka
-  - Messages
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/topics
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/api-reference/topics
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Create, inspect, and manage the underlying Kafka topics - browse
-    messages and message values, read topic metrics, statistics, and Kafka broker
-    metadata, publish records, and drive topic-level snapshots.
-- aid: streamkap:streamkap-tags-api
-  name: Streamkap Tags API
-  tags:
-  - Tags
-  - Organization
-  - Metadata
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/tags
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/api-reference/tags
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Create, search, update, and delete tags used to label and group
-    sources, destinations, pipelines, transforms, and topics for organization and
-    bulk operations.
-- aid: streamkap:streamkap-kafka-access-api
-  name: Streamkap Kafka Access API
-  tags:
-  - Kafka
-  - Access
-  - ACLs
-  - Consumer Groups
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/kafka-access
-  baseURL: https://api.streamkap.com/api
-  properties:
-  - url: https://docs.streamkap.com/api-reference/kafka-access
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Provision Kafka users and their ACLs for direct broker access,
-    inspect consumer groups and reset their offsets, and browse the Schema Registry
-    subjects and versions backing the streams.
 - aid: streamkap:streamkap-authentication-api
   name: Streamkap Authentication API
+  description: Obtain and refresh access tokens and manage credentials.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
   tags:
   - Authentication
-  - Tokens
-  - Project Keys
-  - Credentials
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.streamkap.com/api-reference/authentication
-  baseURL: https://api.streamkap.com/api
   properties:
-  - url: https://docs.streamkap.com/api-reference/authentication
-    type: APIReference
-  - url: openapi/streamkap-openapi.yml
-    type: OpenAPI
-  - url: collections/streamkap.postman_collection.json
-    type: PostmanCollection
-  - url: collections/streamkap.opencollection.json
-    type: OpenCollection
-  description: Exchange a client-id and secret (or a project key) for a JWT access
-    token, refresh tokens, manage client credentials and project keys, and inspect
-    the caller's identity, permissions, and roles.
+  - type: OpenAPI
+    url: openapi/streamkap-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-connectors-api
+  name: Streamkap Connectors API
+  description: Discover available connector types.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-destinations-api
+  name: Streamkap Destinations API
+  description: Configure and manage sink destinations.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-destinations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-kafka-access-api
+  name: Streamkap Kafka Access API
+  description: Manage Kafka users and permissions.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Kafka Access
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-kafka-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-pipelines-api
+  name: Streamkap Pipelines API
+  description: Manage CDC pipelines and their lifecycle.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Pipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-pipelines-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-sources-api
+  name: Streamkap Sources API
+  description: Configure source connectors and snapshots.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-sources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-tags-api
+  name: Streamkap Tags API
+  description: Create and manage resource tags.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-topics-api
+  name: Streamkap Topics API
+  description: Manage underlying Kafka topics.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Topics
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-topics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
+- aid: streamkap:streamkap-transforms-api
+  name: Streamkap Transforms API
+  description: Deploy and manage in-stream transforms.
+  humanURL: https://docs.streamkap.com/api-reference/sources
+  baseURL: https://api.streamkap.com/api
+  tags:
+  - Transforms
+  properties:
+  - type: OpenAPI
+    url: openapi/streamkap-transforms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamkap.com/sources
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/sources
+  - type: PostmanCollection
+    url: collections/streamkap.postman_collection.json
+  - type: OpenCollection
+    url: collections/streamkap.opencollection.json
+  - type: Documentation
+    url: https://docs.streamkap.com/destinations
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/destinations
+  - type: Documentation
+    url: https://docs.streamkap.com/pipelines
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/pipelines
+  - type: Documentation
+    url: https://docs.streamkap.com/connectors
+  - type: Documentation
+    url: https://docs.streamkap.com/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/transforms
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/topics
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/tags
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/kafka-access
+  - type: APIReference
+    url: https://docs.streamkap.com/api-reference/authentication
 common:
 - type: AgentCard
   url: a2a/streamkap-a2a.yml
