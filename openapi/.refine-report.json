@@ -1,0 +1,30 @@
+{
+  "provider": "streamkap",
+  "sources": [
+    "streamkap-authentication-api-openapi.yml",
+    "streamkap-connectors-api-openapi.yml",
+    "streamkap-destinations-api-openapi.yml",
+    "streamkap-kafka-access-api-openapi.yml",
+    "streamkap-pipelines-api-openapi.yml",
+    "streamkap-sources-api-openapi.yml",
+    "streamkap-tags-api-openapi.yml",
+    "streamkap-topics-api-openapi.yml",
+    "streamkap-transforms-api-openapi.yml"
+  ],
+  "outputs": [
+    "streamkap-authentication-api-openapi.yml",
+    "streamkap-connectors-api-openapi.yml",
+    "streamkap-destinations-api-openapi.yml",
+    "streamkap-kafka-access-api-openapi.yml",
+    "streamkap-pipelines-api-openapi.yml",
+    "streamkap-sources-api-openapi.yml",
+    "streamkap-tags-api-openapi.yml",
+    "streamkap-topics-api-openapi.yml",
+    "streamkap-transforms-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
