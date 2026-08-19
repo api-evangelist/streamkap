@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap Authentication Transforms API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all transforms with filtering.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/transforms"
+          },
+          "docs": "List all transforms with filtering."
+        },
+        {
+          "info": {
+            "name": "Create a new transform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/transforms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new transform."
+        },
+        {
+          "info": {
+            "name": "Get full transform details.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/transforms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "Get full transform details."
+        },
+        {
+          "info": {
+            "name": "Delete a transform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.streamkap.com/api/transforms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "Delete a transform."
+        },
+        {
+          "info": {
+            "name": "Deploy a transform job to live.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/transforms/deploy-live",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploy a transform job to live."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

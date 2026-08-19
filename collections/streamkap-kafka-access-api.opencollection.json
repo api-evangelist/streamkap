@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap Authentication Kafka Access API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kafka Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Kafka users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/kafka-access/users"
+          },
+          "docs": "List Kafka users."
+        },
+        {
+          "info": {
+            "name": "Create a new Kafka user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/kafka-access/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Kafka user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

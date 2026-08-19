@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap Authentication Tags API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tags by type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/tags"
+          },
+          "docs": "Get tags by type."
+        },
+        {
+          "info": {
+            "name": "Create a new tag.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tag."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

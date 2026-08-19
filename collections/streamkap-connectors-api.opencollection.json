@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap Authentication Connectors API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available source connector types.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/sources/connectors"
+          },
+          "docs": "List available source connector types."
+        },
+        {
+          "info": {
+            "name": "List available destination connector types.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/destinations/connectors"
+          },
+          "docs": "List available destination connector types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

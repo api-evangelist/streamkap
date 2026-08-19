@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamkap Authentication Topics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Topics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all topics with filtering.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/topics"
+          },
+          "docs": "List all topics with filtering."
+        },
+        {
+          "info": {
+            "name": "Create a new Kafka topic.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamkap.com/api/topics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Kafka topic."
+        },
+        {
+          "info": {
+            "name": "Get messages for a topic.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamkap.com/api/topics/:id/messages",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "Get messages for a topic."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

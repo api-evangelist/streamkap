@@ -1,0 +1,195 @@
+{
+  "item": [
+    {
+      "id": "6c509df0-3795-49f3-a245-416976e17051",
+      "name": "Connectors",
+      "description": {
+        "content": "Discover available connector types.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7ad7757-afd1-48c9-83e2-07bfd71f7675",
+          "name": "List available source connector types.",
+          "request": {
+            "name": "List available source connector types.",
+            "description": {},
+            "url": {
+              "path": [
+                "sources",
+                "connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9473f6ef-8cf0-41cb-a7cf-676daf8fab75",
+              "name": "Available source connectors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sources",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"displayName\": \"string\",\n    \"category\": \"source\",\n    \"configSchema\": {\n      \"key_0\": 6944.426946453811\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"displayName\": \"string\",\n    \"category\": \"destination\",\n    \"configSchema\": {\n      \"key_0\": false,\n      \"key_1\": 8080\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fd3ab4b-8734-42ba-bbd3-cbc01ea38f95",
+          "name": "List available destination connector types.",
+          "request": {
+            "name": "List available destination connector types.",
+            "description": {},
+            "url": {
+              "path": [
+                "destinations",
+                "connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b25be784-e7e5-4b47-93b0-4a51a16b0620",
+              "name": "Available destination connectors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "destinations",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"displayName\": \"string\",\n    \"category\": \"source\",\n    \"configSchema\": {\n      \"key_0\": 6944.426946453811\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"displayName\": \"string\",\n    \"category\": \"destination\",\n    \"configSchema\": {\n      \"key_0\": false,\n      \"key_1\": 8080\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.streamkap.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25c38601-6f5c-4ff9-8b6b-ea0c21786324",
+    "name": "Streamkap Authentication Connectors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.\n\nContact Support:\n Name: Streamkap Support",
+      "type": "text/plain"
+    }
+  }
+}
