@@ -16,6 +16,14 @@ tags:
 - Kafka
 - Flink
 - Data Integration
+- Real-Time
+tags_raw:
+- Streaming
+- ETL
+- CDC
+- Kafka
+- Flink
+- Data Integration
 - Real Time
 created: '2026-07-01'
 modified: '2026-07-01'
