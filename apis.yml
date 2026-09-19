@@ -141,6 +141,8 @@ apis:
   humanURL: https://docs.streamkap.com/api-reference/sources
   baseURL: https://api.streamkap.com/api
   tags:
+  - Destination
+  tags_raw:
   - Destinations
   properties:
   - type: OpenAPI
@@ -341,6 +343,8 @@ apis:
   humanURL: https://docs.streamkap.com/api-reference/sources
   baseURL: https://api.streamkap.com/api
   tags:
+  - Topic
+  tags_raw:
   - Topics
   properties:
   - type: OpenAPI
