@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Streamkap Authentication API
   description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
@@ -21,7 +21,7 @@ paths:
       operationId: createAccessToken
       tags:
       - Authentication
-      summary: Exchange credentials for a JWT access token.
+      summary: Exchange credentials for a JWT access token
       security: []
       requestBody:
         required: true
@@ -43,7 +43,7 @@ paths:
       operationId: refreshAccessToken
       tags:
       - Authentication
-      summary: Refresh an access token using a refresh token.
+      summary: Refresh an access token using a refresh token
       requestBody:
         required: true
         content:
@@ -67,7 +67,7 @@ paths:
       operationId: whoami
       tags:
       - Authentication
-      summary: Return the caller's verified identity.
+      summary: Return the caller's verified identity
       responses:
         '200':
           description: Caller identity.
@@ -84,17 +84,6 @@ paths:
                     type: string
 components:
   schemas:
-    AccessTokenResponse:
-      type: object
-      properties:
-        accessToken:
-          type: string
-        refreshToken:
-          type: string
-        expiresIn:
-          type: integer
-        expires:
-          type: string
     AccessTokenRequest:
       type: object
       description: Provide either client_id + secret, or a project_key.
@@ -108,6 +97,17 @@ components:
         project_key:
           type: string
           maxLength: 8192
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        expires:
+          type: string
   responses:
     ValidationError:
       description: Validation error.

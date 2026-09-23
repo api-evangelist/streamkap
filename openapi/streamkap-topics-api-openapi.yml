@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Streamkap Authentication Topics API
+  title: Streamkap Topics API
   description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
   termsOfService: https://streamkap.com/terms
   contact:
@@ -21,7 +21,7 @@ paths:
       operationId: listTopics
       tags:
       - Topics
-      summary: List all topics with filtering.
+      summary: List all topics with filtering
       responses:
         '200':
           description: A list of topics.
@@ -35,7 +35,7 @@ paths:
       operationId: createTopic
       tags:
       - Topics
-      summary: Create a new Kafka topic.
+      summary: Create a new Kafka topic
       requestBody:
         required: true
         content:
@@ -56,7 +56,7 @@ paths:
       operationId: getTopicMessages
       tags:
       - Topics
-      summary: Get messages for a topic.
+      summary: Get messages for a topic
       responses:
         '200':
           description: Topic messages.

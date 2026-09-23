@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Streamkap Authentication Sources API
+  title: Streamkap Sources API
   description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
   termsOfService: https://streamkap.com/terms
   contact:
@@ -21,7 +21,7 @@ paths:
       operationId: listSources
       tags:
       - Sources
-      summary: List all sources with filtering.
+      summary: List all sources with filtering
       parameters:
       - $ref: '#/components/parameters/Page'
       - $ref: '#/components/parameters/Limit'
@@ -38,7 +38,7 @@ paths:
       operationId: createSource
       tags:
       - Sources
-      summary: Create a new source connector.
+      summary: Create a new source connector
       requestBody:
         required: true
         content:
@@ -59,7 +59,7 @@ paths:
       operationId: getSource
       tags:
       - Sources
-      summary: Retrieve specific source details.
+      summary: Retrieve specific source details
       responses:
         '200':
           description: Source details.
@@ -71,7 +71,7 @@ paths:
       operationId: updateSource
       tags:
       - Sources
-      summary: Update an existing source connector.
+      summary: Update an existing source connector
       requestBody:
         required: true
         content:
@@ -89,7 +89,7 @@ paths:
       operationId: deleteSource
       tags:
       - Sources
-      summary: Delete a source.
+      summary: Delete a source
       responses:
         '204':
           description: Source deleted.
@@ -98,7 +98,7 @@ paths:
       operationId: executeIncrementalSnapshot
       tags:
       - Sources
-      summary: Execute an incremental snapshot on a source.
+      summary: Execute an incremental snapshot on a source
       requestBody:
         required: true
         content:
@@ -110,6 +110,13 @@ paths:
           description: Snapshot accepted.
 components:
   parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -124,13 +131,6 @@ components:
       schema:
         type: integer
         default: 1
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
   schemas:
     SourceInput:
       type: object

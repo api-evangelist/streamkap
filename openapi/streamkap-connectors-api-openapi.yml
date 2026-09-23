@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Streamkap Authentication Connectors API
+  title: Streamkap Connectors API
   description: Representative specification of the Streamkap REST API for provisioning and operating real-time streaming ETL / change data capture (CDC) infrastructure built on Apache Kafka and Apache Flink. Covers sources, destinations, pipelines, connectors, transforms, topics, tags, Kafka access, and authentication. Endpoints and shapes are modeled from the public Streamkap API reference; consult docs.streamkap.com for the authoritative, complete contract.
   termsOfService: https://streamkap.com/terms
   contact:
@@ -21,7 +21,7 @@ paths:
       operationId: listSourceConnectors
       tags:
       - Connectors
-      summary: List available source connector types.
+      summary: List available source connector types
       responses:
         '200':
           description: Available source connectors.
@@ -36,7 +36,7 @@ paths:
       operationId: listDestinationConnectors
       tags:
       - Connectors
-      summary: List available destination connector types.
+      summary: List available destination connector types
       responses:
         '200':
           description: Available destination connectors.

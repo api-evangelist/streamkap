@@ -1,0 +1,32 @@
+# Front Door AI Index — streamkap — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: streamkap
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: streamkap.com
+  final_host: streamkap.com
+  ownership: own
+  owner: streamkap
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 37
+  host_score: 37
+  density: 25.64
+  words: 1443
+  tiers:
+    agentic: 17
+    core: 15
+    model: 5
+  ambiguous: 30
+  top_terms:
+    agent: 30
+    AI: 12
+    AI agent: 9
+    MCP: 6
+    Claude: 5
+    ML: 3
+    inference: 1
+    prompts: 1
