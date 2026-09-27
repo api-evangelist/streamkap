@@ -43,14 +43,16 @@ tags:
 - Flink
 - Data Integration
 - Real-Time
+- A2A
 tags_raw:
 - Streaming
 - ETL
-- CDC
+- Change Data Capture
 - Kafka
 - Flink
 - Data Integration
 - Real Time
+- A2A
 created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.23'
@@ -449,3 +451,10 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://streamkap.com/.well-known/agent-card.json"
+  grade: "flavored"
+  protocol_version: "1.0"
+  control: 404

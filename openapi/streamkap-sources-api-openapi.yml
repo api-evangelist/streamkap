@@ -117,13 +117,6 @@ components:
       description: Resource identifier.
       schema:
         type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 20
     Page:
       name: page
       in: query
@@ -131,7 +124,26 @@ components:
       schema:
         type: integer
         default: 1
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
   schemas:
+    SnapshotRequest:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Source id to snapshot.
+        tables:
+          type: array
+          items:
+            type: string
     SourceInput:
       type: object
       required:
@@ -172,18 +184,6 @@ components:
           type: object
           additionalProperties: true
         tags:
-          type: array
-          items:
-            type: string
-    SnapshotRequest:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Source id to snapshot.
-        tables:
           type: array
           items:
             type: string

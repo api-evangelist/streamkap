@@ -51,22 +51,22 @@ paths:
                 $ref: '#/components/schemas/KafkaUser'
 components:
   schemas:
-    KafkaUserInput:
+    KafkaUser:
       type: object
-      required:
-      - username
       properties:
+        id:
+          type: string
         username:
           type: string
         acls:
           type: array
           items:
             type: object
-    KafkaUser:
+    KafkaUserInput:
       type: object
+      required:
+      - username
       properties:
-        id:
-          type: string
         username:
           type: string
         acls:

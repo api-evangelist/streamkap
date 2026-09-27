@@ -93,23 +93,15 @@ paths:
         '202':
           description: Deploy accepted.
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
   schemas:
-    TransformInput:
-      type: object
-      required:
-      - name
-      - language
-      properties:
-        name:
-          type: string
-        language:
-          type: string
-          enum:
-          - SQL
-          - Python
-          - TypeScript
-        code:
-          type: string
     Transform:
       type: object
       properties:
@@ -133,14 +125,22 @@ components:
           type: array
           items:
             type: string
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
+    TransformInput:
+      type: object
+      required:
+      - name
+      - language
+      properties:
+        name:
+          type: string
+        language:
+          type: string
+          enum:
+          - SQL
+          - Python
+          - TypeScript
+        code:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

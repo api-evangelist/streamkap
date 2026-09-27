@@ -51,20 +51,20 @@ paths:
                 $ref: '#/components/schemas/Tag'
 components:
   schemas:
-    Tag:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
     TagInput:
       type: object
       required:
       - name
       properties:
+        name:
+          type: string
+        type:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
         name:
           type: string
         type:
