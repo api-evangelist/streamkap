@@ -73,32 +73,7 @@ paths:
         '204':
           description: Pipeline deleted.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
   schemas:
-    PipelineInput:
-      type: object
-      required:
-      - name
-      - sourceId
-      - destinationId
-      properties:
-        name:
-          type: string
-        sourceId:
-          type: string
-        destinationId:
-          type: string
-        transformIds:
-          type: array
-          items:
-            type: string
     Pipeline:
       type: object
       properties:
@@ -116,6 +91,31 @@ components:
             type: string
         status:
           type: string
+    PipelineInput:
+      type: object
+      required:
+      - name
+      - sourceId
+      - destinationId
+      properties:
+        name:
+          type: string
+        sourceId:
+          type: string
+        destinationId:
+          type: string
+        transformIds:
+          type: array
+          items:
+            type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

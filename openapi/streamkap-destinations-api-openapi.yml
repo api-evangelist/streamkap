@@ -95,13 +95,6 @@ paths:
           description: Destination deleted.
 components:
   parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
     Page:
       name: page
       in: query
@@ -109,6 +102,13 @@ components:
       schema:
         type: integer
         default: 1
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
