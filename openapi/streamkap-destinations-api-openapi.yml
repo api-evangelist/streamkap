@@ -94,29 +94,21 @@ paths:
         '204':
           description: Destination deleted.
 components:
-  parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 20
   schemas:
+    DestinationInput:
+      type: object
+      required:
+      - name
+      - connector
+      - config
+      properties:
+        name:
+          type: string
+        connector:
+          type: string
+        config:
+          type: object
+          additionalProperties: true
     Destination:
       type: object
       properties:
@@ -138,20 +130,28 @@ components:
         config:
           type: object
           additionalProperties: true
-    DestinationInput:
-      type: object
-      required:
-      - name
-      - connector
-      - config
-      properties:
-        name:
-          type: string
-        connector:
-          type: string
-        config:
-          type: object
-          additionalProperties: true
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     bearerAuth:
       type: http

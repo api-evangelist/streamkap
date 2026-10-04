@@ -93,14 +93,6 @@ paths:
         '202':
           description: Deploy accepted.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
   schemas:
     Transform:
       type: object
@@ -141,6 +133,14 @@ components:
           - TypeScript
         code:
           type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

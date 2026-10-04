@@ -83,27 +83,6 @@ paths:
                   email:
                     type: string
 components:
-  responses:
-    ValidationError:
-      description: Validation error.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              detail:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    loc:
-                      type: array
-                      items:
-                        type: string
-                    msg:
-                      type: string
-                    type:
-                      type: string
   schemas:
     AccessTokenResponse:
       type: object
@@ -129,6 +108,27 @@ components:
         project_key:
           type: string
           maxLength: 8192
+  responses:
+    ValidationError:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    loc:
+                      type: array
+                      items:
+                        type: string
+                    msg:
+                      type: string
+                    type:
+                      type: string
   securitySchemes:
     bearerAuth:
       type: http

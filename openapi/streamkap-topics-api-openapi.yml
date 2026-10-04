@@ -68,22 +68,22 @@ paths:
                   type: object
 components:
   schemas:
-    Topic:
+    TopicInput:
       type: object
+      required:
+      - name
       properties:
-        id:
-          type: string
         name:
           type: string
         partitions:
           type: integer
         replicationFactor:
           type: integer
-    TopicInput:
+    Topic:
       type: object
-      required:
-      - name
       properties:
+        id:
+          type: string
         name:
           type: string
         partitions:
