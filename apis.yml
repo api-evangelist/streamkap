@@ -54,7 +54,7 @@ tags_raw:
 - Real Time
 - A2A
 created: '2026-07-01'
-modified: '2026-07-01'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: streamkap:streamkap-authentication-api
@@ -422,6 +422,8 @@ apis:
   - type: APIReference
     url: https://docs.streamkap.com/api-reference/authentication
 common:
+- url: https://streamkap.com/blog
+  type: Blog
 - type: AgentCard
   url: a2a/streamkap-a2a.yml
   name: A2A Agent Card
