@@ -67,18 +67,15 @@ paths:
                 items:
                   type: object
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier.
+      schema:
+        type: string
   schemas:
-    TopicInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        partitions:
-          type: integer
-        replicationFactor:
-          type: integer
     Topic:
       type: object
       properties:
@@ -90,14 +87,17 @@ components:
           type: integer
         replicationFactor:
           type: integer
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Resource identifier.
-      schema:
-        type: string
+    TopicInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        partitions:
+          type: integer
+        replicationFactor:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

@@ -84,17 +84,6 @@ paths:
                     type: string
 components:
   schemas:
-    AccessTokenResponse:
-      type: object
-      properties:
-        accessToken:
-          type: string
-        refreshToken:
-          type: string
-        expiresIn:
-          type: integer
-        expires:
-          type: string
     AccessTokenRequest:
       type: object
       description: Provide either client_id + secret, or a project_key.
@@ -108,6 +97,17 @@ components:
         project_key:
           type: string
           maxLength: 8192
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        expires:
+          type: string
   responses:
     ValidationError:
       description: Validation error.
